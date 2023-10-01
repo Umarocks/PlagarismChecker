@@ -5,12 +5,52 @@ import gensim
 from gensim import corpora
 from gensim import similarities
 import nltk
+# nltk.download('punkt')
 
 # Define the search query
 query = "The company said the new phones' titanium frame and aluminum substructure aren't contributing to the issue, and that they dissipate heat better than the stainless steel used in prior Pro models"
 urls = []
 reference_documents=[]
 sentences = []
+
+# Function to tokenize and generate n-grams from a given text
+def generate_ngrams(text, n):
+    tokens = nltk.word_tokenize(text)
+    ngrams = []
+    for i in range(len(tokens) - n + 1):
+        ngram = " ".join(tokens[i:i + n])
+        ngrams.append(ngram)
+    return ngrams
+
+# Function to calculate Jaccard similarity between two sets
+def jaccard_similarity(set1, set2):
+    intersection = set1.intersection(set2)
+    union = set1.union(set2)
+    return len(intersection) / len(union)
+
+# Function to check for plagiarism using n-grams analysis
+def detect_plagiarism(source_text, suspicious_text, n=3, threshold=0.5):
+    source_ngrams = set(generate_ngrams(source_text, n))
+    suspicious_ngrams = set(generate_ngrams(suspicious_text, n))
+
+    similarity = jaccard_similarity(source_ngrams, suspicious_ngrams)
+    print(similarity)
+    if similarity >= threshold:
+        return True  # Potential plagiarism detected
+    else:
+        return False  # No plagiarism detected
+
+def compute_plagarism():
+    source_text = query
+    for sentence in sentences:  
+        suspicious_text=sentence
+        # print(suspicious_text)
+        is_plagiarism = detect_plagiarism(source_text, suspicious_text, n=3, threshold=0.5)
+        if is_plagiarism:
+            print("Plagiarism detected.")
+        else:
+            print("No plagiarism detected.")
+
 def get_url():
     # Perform the Google search and get search results
     search_results = list(search(query, num_results=5))  # Adjust the number as needed
@@ -64,11 +104,13 @@ def string_cleaning():
                     # No period found, append the whole string
                     sentences.append(i)
             # Print the array of sentences
-            for sentence in sentences:
-                print(sentence)
+            # for sentence in sentences:
+            #     print(sentence)
     
         print("\n" + "-" * 40 + "\n")  # Separator between URLs
 
 
+
 get_url()
 string_cleaning()
+compute_plagarism()
