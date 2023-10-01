@@ -12,8 +12,8 @@ query = []
 urls = []
 reference_documents=[]
 sentences = []
-
-
+score_tracker=0
+score = [0] 
 # Function to tokenize and generate n-grams from a given text
 def generate_ngrams(text, n):
     tokens = nltk.word_tokenize(text)
@@ -33,25 +33,29 @@ def jaccard_similarity(set1, set2):
 def detect_plagiarism(source_text, suspicious_text, n=3, threshold=0.5):
     source_ngrams = set(generate_ngrams(source_text, n))
     suspicious_ngrams = set(generate_ngrams(suspicious_text, n))
-
     similarity = jaccard_similarity(source_ngrams, suspicious_ngrams)
-    print(similarity)
-    if similarity >= threshold:
-        return True  # Potential plagiarism detected
-    else:
-        return False  # No plagiarism detected
+    score[score_tracker]=max(score[score_tracker],similarity)
 
 def compute_plagarism():
-    for sus_sentence in query:
-        source_text = sus_sentence
-        for sentence in sentences:  
-            suspicious_text=sentence
-            print(suspicious_text)
-            is_plagiarism = detect_plagiarism(source_text, suspicious_text, n=3, threshold=0.5)
-            if is_plagiarism:
-                print("Plagiarism detected.")
-            else:
-                print("No plagiarism detected.")
+    global score_tracker  # Assuming score_tracker is defined somewhere outside this function.
+    sus_sentence=query[score_tracker]
+    # print("SUS SENTENCE:",sus_sentence)    
+    # print(query)
+    source_text = sus_sentence
+    for sentence in sentences:
+        suspicious_text = sentence
+        # print(suspicious_text)
+        is_plagiarism = detect_plagiarism(source_text, suspicious_text, n=3, threshold=0.5)
+        # if is_plagiarism:
+        #     print("Plagiarism detected.")
+        # else:
+        #     print("No plagiarism detected.")     
+    score_tracker += 1  # Increment score_tracker for each sus_sentence
+    score.append(0)
+    # print(score)
+    # print(score_tracker)
+
+   
 
 def get_url():
     # Perform the Google search and get search results
@@ -88,7 +92,7 @@ def parse_url(url):
 
 def string_cleaning():
     for i, url in enumerate(urls, start=1):
-        print(f"Processing URL {i}: {url}")
+        # print(f"Processing URL {i}: {url}")
         soup = parse_url(url)
         if soup:
             headings_and_paragraphs = [tag.text.strip() for tag in soup.find_all([ 'p', 'a'])]
@@ -112,7 +116,7 @@ def string_cleaning():
             # for sentence in sentences:
             #     print(sentence)
     
-        print("\n" + "-" * 40 + "\n")  # Separator between URLs
+        # print("\n" + "-" * 40 + "\n")  # Separator between URLs
     compute_plagarism()
 
 def filtering(input_string , query):
@@ -123,12 +127,15 @@ def filtering(input_string , query):
     sentences = [sentence.strip() for sentence in sentences if sentence.strip()]
     # Print the resulting array of sentences
     query.extend(sentences)
-    
+
+def average_without_last_element(arr):
+    sum_for_avg=0
+    for i in range(0,(len(score)-1)):
+        sum_for_avg+=i
+    average=sum_for_avg/(len(score)-1)
+    return average
 
 filtering(input_string,query)
-print("query: ",query)
-print(len(query))
 get_url()   
-# string_cleaning()
-# compute_plagarism()
+print("Plagarism is : ",average_without_last_element(score)*100,"%")
     
