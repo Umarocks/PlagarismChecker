@@ -46,7 +46,7 @@ def compute_plagarism():
         source_text = sus_sentence
         for sentence in sentences:  
             suspicious_text=sentence
-            # print(suspicious_text)
+            print(suspicious_text)
             is_plagiarism = detect_plagiarism(source_text, suspicious_text, n=3, threshold=0.5)
             if is_plagiarism:
                 print("Plagiarism detected.")
@@ -56,17 +56,19 @@ def compute_plagarism():
 def get_url():
     # Perform the Google search and get search results
     for sus_sentence in query:
-        search_results = list(search(sus_sentence, num_results=5))  # Adjust the number as needed
+        search_results = list(search(sus_sentence, num_results=2))  # Adjust the number as needed
 
         # Extract the top 5 URLs from the search results
-        top_links = search_results[:5]
+        top_links = search_results[:2]
         
         # put linkes in urls array
         for i, link in enumerate(top_links, start=1):
             urls.append(link)
 
-        for i in urls:
-            print("URL:", i)
+        # for i in urls:
+        #     print("URL:", i)
+        string_cleaning()
+        urls.clear()
 
 # Function to fetch and parse a URL
 def parse_url(url):
@@ -85,14 +87,14 @@ def parse_url(url):
 # Parse and print the data from each URL
 
 def string_cleaning():
-    for i, (url) in enumerate(urls, start=1):
+    for i, url in enumerate(urls, start=1):
         print(f"Processing URL {i}: {url}")
         soup = parse_url(url)
-
         if soup:
             headings_and_paragraphs = [tag.text.strip() for tag in soup.find_all([ 'p', 'a'])]
             # Extract text within a tags
             filtered_headings_and_paragraphs = [text for text in headings_and_paragraphs if len([word for word in text.split() if word.strip()]) > 4]
+            # print(filtered_headings_and_paragraphs)
             for i in filtered_headings_and_paragraphs:
                 if '.' in i:
                     # Split the string based on periods
@@ -111,6 +113,7 @@ def string_cleaning():
             #     print(sentence)
     
         print("\n" + "-" * 40 + "\n")  # Separator between URLs
+    compute_plagarism()
 
 def filtering(input_string , query):
     # Split the input string into an array of strings using periods as the delimiter
@@ -124,8 +127,8 @@ def filtering(input_string , query):
 
 filtering(input_string,query)
 print("query: ",query)
-
-get_url()
-string_cleaning()
-compute_plagarism()
+print(len(query))
+get_url()   
+# string_cleaning()
+# compute_plagarism()
     
