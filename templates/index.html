@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+    <h1>Calculate Plagiarism Score</h1>
+    <p>Enter your text:</p>
+    <textarea id="inputText" rows="4" cols="50"></textarea>
+    <br>
+    <button onclick="checkPlagiarism()">Check Plagiarism</button>
+    <p id="result"></p>
+</body>
+</html>
