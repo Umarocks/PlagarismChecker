@@ -6,12 +6,13 @@ from gensim import corpora
 from gensim import similarities
 import nltk
 # nltk.download('punkt')
-
+input_string="The company said the new phones' titanium frame and aluminum substructure aren't contributing to the issue, and that they dissipate heat better than the stainless steel used in prior Pro models.Soccer is played with a round ball that can be kicked and headed. American football, however, is more of a rugby type game in which the oblong shaped ball is thrown and passed as well as kicked."
 # Define the search query
-query = "The company said the new phones' titanium frame and aluminum substructure aren't contributing to the issue, and that they dissipate heat better than the stainless steel used in prior Pro models"
+query = []
 urls = []
 reference_documents=[]
 sentences = []
+
 
 # Function to tokenize and generate n-grams from a given text
 def generate_ngrams(text, n):
@@ -41,29 +42,31 @@ def detect_plagiarism(source_text, suspicious_text, n=3, threshold=0.5):
         return False  # No plagiarism detected
 
 def compute_plagarism():
-    source_text = query
-    for sentence in sentences:  
-        suspicious_text=sentence
-        # print(suspicious_text)
-        is_plagiarism = detect_plagiarism(source_text, suspicious_text, n=3, threshold=0.5)
-        if is_plagiarism:
-            print("Plagiarism detected.")
-        else:
-            print("No plagiarism detected.")
+    for sus_sentence in query:
+        source_text = sus_sentence
+        for sentence in sentences:  
+            suspicious_text=sentence
+            # print(suspicious_text)
+            is_plagiarism = detect_plagiarism(source_text, suspicious_text, n=3, threshold=0.5)
+            if is_plagiarism:
+                print("Plagiarism detected.")
+            else:
+                print("No plagiarism detected.")
 
 def get_url():
     # Perform the Google search and get search results
-    search_results = list(search(query, num_results=5))  # Adjust the number as needed
+    for sus_sentence in query:
+        search_results = list(search(sus_sentence, num_results=5))  # Adjust the number as needed
 
-    # Extract the top 5 URLs from the search results
-    top_links = search_results[:5]
-    
-    # put linkes in urls array
-    for i, link in enumerate(top_links, start=1):
-        urls.append(link)
+        # Extract the top 5 URLs from the search results
+        top_links = search_results[:5]
+        
+        # put linkes in urls array
+        for i, link in enumerate(top_links, start=1):
+            urls.append(link)
 
-    for i in urls:
-        print("URL:", i)
+        for i in urls:
+            print("URL:", i)
 
 # Function to fetch and parse a URL
 def parse_url(url):
@@ -82,7 +85,7 @@ def parse_url(url):
 # Parse and print the data from each URL
 
 def string_cleaning():
-    for i, url in enumerate(urls, start=1):
+    for i, (url) in enumerate(urls, start=1):
         print(f"Processing URL {i}: {url}")
         soup = parse_url(url)
 
@@ -109,8 +112,20 @@ def string_cleaning():
     
         print("\n" + "-" * 40 + "\n")  # Separator between URLs
 
+def filtering(input_string , query):
+    # Split the input string into an array of strings using periods as the delimiter
+    sentences = input_string.split(".")
 
+    # Remove leading/trailing spaces and empty strings
+    sentences = [sentence.strip() for sentence in sentences if sentence.strip()]
+    # Print the resulting array of sentences
+    query.extend(sentences)
+    
+
+filtering(input_string,query)
+print("query: ",query)
 
 get_url()
 string_cleaning()
 compute_plagarism()
+    
