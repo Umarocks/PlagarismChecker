@@ -1,4 +1,5 @@
-googlesearch
+googlesearch-python
+streamlit
 requests
 beautifulsoup4
 gensim
