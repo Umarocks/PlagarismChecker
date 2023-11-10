@@ -3,7 +3,7 @@ def get_url(urls,query):
     search_results = list(search(query, num_results=4))  # Adjust the number as needed for number of links to open and parse the data from google searched
 
     # Extract the top 3 URLs from the search results
-    top_links = search_results[:4]
+    top_links = search_results[:]
     
     # put links in urls array
     for i, link in enumerate(top_links, start=1):
