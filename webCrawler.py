@@ -11,18 +11,18 @@ from filtering import clean_text
 
 # nltk.download('punkt')
 query = []
-urls = ["https://en.wikipedia.org/wiki/Football_(word)","https://www.dictionary.com/e/soccer-or-football/","https://www.quora.com/If-soccer-is-called-football-in-some-countries-then-what-do-they-call-football"]
+urls = []
 reference_documents=[]
 sentences = []
 score_tracker=0
 score = [0] 
 
 # Example
-sequence1 = "Many in Australia, New Zealand, and  call  football , likely as a way to  it Ireland  from Australian rules football  Gaelic football, which are commonly  association to just as football in those places—just as Americans call American football simply football."
+sequence1 = "Đurišić and Draža Mihailović, and Pajović was among thehistorians who opposed this politically motivated historical revisionism.Towards the end of his academic career and in retirement, Pajović was a vocal advocate forMontenegrin independence and identity. (Full article...)The association in association football was also shortened to soccer.This clips off the first and last three syllables of association, leaving –soc-,onto which that chummy –er was added, yielding soccer. The term is first recordedas socker in 1891. Footer is slightly older, found in that fateful year of 1863.This repository is public and visible to anyone."
 #sequence2 = "If you’re reading this in the US or Canada, you’re likely familiar with the sport of soccer. But, if you’re reading this pretty much anywhere else, then you probably know the same game rules and call it football. What’s the difference?How did we end up with two names, football and soccer, for the same sport?Let’s start in England in the 1800s. Young men, especially at boarding schools, played a number of versions of moving a ball (with hands or feet) across an opponent’s goal. At Rugby School, for instance, they played a version that allowed for use of the hands; at Eton College, only feet were permitted.So, in 1863 in London, a Football Association (the world’s first) was formed to standardize the rules. Two codes resulted from it: rugby football, after Rugby School, and association football, after that newly formed association.Keep Learning New Words Every Day!Get the Word of The Day delivered straight to your inbox!yourname@email.comWhere does the word soccer come from?Now, around the 1870s, students, especially at Oxford University, were fond of a playful slang practice where they shortened words and added –er to their end. Breakfast, for instant, became brekker. Rugby? Rugger. Football? Footer.The association in association football was also shortened to soccer. This clips off the first and last three syllables of association, leaving –soc-, onto which that chummy –er was added, yielding soccer. The term is first recorded as socker in 1891. Footer is slightly older, found in that fateful year of 1863.What is the origin of American football?But, what about that other football that people in the US bring to the Super Bowl? American football (a term recorded in the 1870s) is based on rugby and had already taken off by the time association football became popular in the US.For whatever reason, the name soccer stuck for association football and football for the gridiron sport. In fact, the governing body for soccer in the US was called the United States Soccer Football Association until 1974.How many football fans know the origins of the terms used in the American sport? Learn about quarterback and more, here.Does anyone else around the world call football soccer?Americans and Canadians aren’t alone, however, in calling the sport soccer. Many in Australia, New Zealand, and Ireland call association football soccer, likely as a way to distinguish it from Australian rules football and Gaelic football, which are commonly referred to just as football in those places—just as Americans call American football simply football.So, the next time a British person thumbs their nose at you for calling football soccer, you can let them know that soccer was a UK original! And, if you’re having trouble keeping all these names straight, take a page from Spanish and call it … fútbol!"
 
 plag=0;
-# get_url(urls,sequence1) 
+get_url(urls,sequence1) 
 for url in urls:  
     sequence2=''
     sequence2=string_cleaning(url,sequence2)  
