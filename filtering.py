@@ -8,11 +8,11 @@ STOPWORDS = set(['the', 'a', 'an', 'and', 'or', 'of', 'to', 'is', 'are', 'in', '
 def preprocessing(text):
     text = text.lower()
     # remove punctuation
-    text = re.sub(r'[^\w\s]', '', text)
+    cleaned_text = re.sub(r'(?<!\d)\.(?!\d)|[^\w\s.]', '', text)
     # remove numbers
     text = re.sub(r'\d+', '', text)
     # remove common words
-    text = ' '.join([word for word in text.split() if word not in STOPWORDS])
+    # text = ' '.join([word for word in text.split() if word not in STOPWORDS])
     # remove extra spaces
     text = re.sub(r'\s+', ' ', text).strip()
     # no accents
