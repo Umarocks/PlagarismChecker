@@ -16,7 +16,7 @@ urls = ["https://docs.cypress.io/guides/references/changelog", "https://www.dict
 reference_documents=[]
 sentences = []
 score_tracker=0
-score = array('f')
+scoree = []
 
 # Example
 sequence1 = "Đurišić and  Mihailović, and Pajović  among  who opposed this  motivated  revisionism.Towards the end of his academic i am aziz 2001 career and in retirement,  was a vocal advocate my name is umar independence research methods is what i am doing and identity. (Full article...)The association in association football was also shortened to soccer.This clips off the first and last three syllables of association, leaving –soc-,onto which that chummy –er was added, yielding soccer. The term is first recordedas socker in 1891. Footer is slightly older, found in that fateful year of 1863.This repository is public and visible to anyone."
@@ -25,8 +25,8 @@ sequence1 = preprocessing(sequence1)
 # print(sequence1)
 plag=0;
 # get_url(urls,sequence1) 
-for url in urls:
-    score.append(0)
+
+   
 sequence1 = sequence1.split('.')
 sequence1_dup = sequence1
 print(sequence1)
@@ -44,8 +44,8 @@ for url in urls:
     # print(sequence2)  
     print("|||||||||||||||||||||||||||||||||||||||||||||")
     for sequence in sequence1:
-         counter =0;
-         for sequencesecond in sequence2:
+        scoree.append(0.0)
+        for sequencesecond in sequence2:
             # print("........................................")
             alignment1, alignment2, score = smith_waterman(sequence, sequencesecond)
             # print("Sequence 1:", alignment1)
@@ -57,67 +57,27 @@ for url in urls:
             a = (len(alignment2)-distance)
             
             if(a>0):
-                plag2 = (a*100)/len(sequence)
-                if(plag2>plag and plag2>70):
-                    plag=plag2
-                    index = sequence1.index(sequence)
-                    score[counter]=max(score[counter],plag)
-                    print("........................................")
-                    print("Sequence 1:", alignment1)
-                    print("Sequence 2:", alignment2)
-                    print("Alignment Score:", score) 
-                    print(f"Levenshtein Distance between '{sequence}' and '{alignment2}': {distance}")  
-                    print("Umaryabou")
-                    print(plag2)
-                    print("........................................")
-         counter+=1
+                plag2 = ((a*100)/len(sequence))
+                # if(plag2 > plag ):#and plag2 > 70
+                # print(score[score_tracker])
+                plag = plag2
+                index = sequence1.index(sequence)
+                if(scoree[score_tracker]<plag):
+                    scoree[score_tracker]=plag
+                # score[score_tracker]=max(score[score_tracker],plag2)
+                print("........................................")
+                print("Sequence 1:", alignment1)
+                print("Sequence 2:", alignment2)
+                print("Alignment Score:", score) 
+                print(f"Levenshtein Distance between '{sequence}' and '{alignment2}': {distance}")  
+                print("Umaryabou")
+                print(plag2)
+                print("........................................")
+        
+    score_tracker+=1
 
 print("Final Plagarism Score ------" )
 print(plag) 
-print(score)
-
-
-# plag2 = (a*100)/len(alignment1)
-#                 index = sequence1.index(sequence)
-#                 if(plag2>score[index]):
-#                     score[index]=plag2
-#                 print(plag2)
-# def detect_plagiarism(source_text, suspicious_text, n=3, threshold=0.5):
-#     # source_ngrams = set(generate_ngrams(source_text, n))
-#     # suspicious_ngrams = set(generate_ngrams(suspicious_text, n))
-#     # similarity = jaccard_similarity(source_ngrams, suspicious_ngrams)
-#     # score[score_tracker]=max(score[score_tracker],similarity)
-#     return 0
-
-# def compute_plagarism():
-#     global score_tracker  # Assuming score_tracker is defined somewhere outside this function.
-#     sus_sentence=query[score_tracker]
-#     # print("SUS SENTENCE:",sus_sentence)    
-#     # print(query)
-#     source_text = sus_sentence
-#     for sentence in sentences:
-#         suspicious_text = sentence
-#         # print(suspicious_text)
-#         is_plagiarism = detect_plagiarism(source_text, suspicious_text, n=3, threshold=0.5)
-#         # if is_plagiarism:
-#         #     print("Plagiarism detected.")
-#         # else:
-#         #     print("No plagiarism detected.")     
-#     score_tracker += 1  # Increment score_tracker for each sus_sentence
-#     score.append(0)
-#     # print(score)
-#     # print(score_tracker)
-
-# def average_without_last_element(arr):
-#     if len(arr) <= 1:
-#         return 0  # Handle the case where the array is empty or has only one element
-    
-#     # Sum all elements except the last one
-#     total_sum = sum(arr[:-1])
-    
-#     # Calculate the average
-#     average = total_sum / (len(arr) - 1)
-    
-#     return average
+print(scoree)
 
 

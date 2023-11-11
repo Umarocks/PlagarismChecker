@@ -20,3 +20,4 @@ def levenshtein_distance(str1, str2):
             )
 
     return matrix[len_str1 - 1][len_str2 - 1]
+
