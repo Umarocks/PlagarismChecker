@@ -30,6 +30,7 @@ plag=0;
 sequence1 = sequence1.split('.')
 sequence1_dup = sequence1
 print(sequence1)
+print(len(sequence1))
 # we can do one thing that is to get 2 url for each sentence divided by "." this will help optimize 
 # as right now we are comparing all substr of seq1 with url of substr[i]
 for url in urls:  
@@ -44,7 +45,8 @@ for url in urls:
     # print(sequence2)  
     print("|||||||||||||||||||||||||||||||||||||||||||||")
     for sequence in sequence1:
-        scoree.append(0.0)
+        if(len(sequence1)>=len(scoree)):
+            scoree.append(0.0)
         for sequencesecond in sequence2:
             # print("........................................")
             alignment1, alignment2, score = smith_waterman(sequence, sequencesecond)
@@ -58,16 +60,12 @@ for url in urls:
             
             if(a>0):
                 plag2 = ((a*100)/len(sequence))
-                # if(plag2 > plag ):#and plag2 > 70
-                # print(score[score_tracker])
                 plag = plag2
-                index = sequence1.index(sequence)
                 if(scoree[score_tracker]<plag):
                     scoree[score_tracker]=plag
-                # score[score_tracker]=max(score[score_tracker],plag2)
                 print("........................................")
-                print("Sequence 1:", alignment1)
-                print("Sequence 2:", alignment2)
+                print("aln 1:", alignment1)
+                print("aln 2:", alignment2)
                 print("Alignment Score:", score) 
                 print(f"Levenshtein Distance between '{sequence}' and '{alignment2}': {distance}")  
                 print("Umaryabou")
