@@ -9,7 +9,24 @@ from similarity_compute import levenshtein_distance
 from finding_sequence import smith_waterman
 from filtering import preprocessing
 from array import array
-# nltk.download('punkt')
+nltk.download('punkt')
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+
+def preprocess_text(text):
+    # Tokenize the text into words
+    words = word_tokenize(text)
+    # Remove stopwords and lowercase the words
+    # stop_words = set(stopwords.words('english'))
+    filtered_words = [word.lower() for word in words if word.isalnum() and word.lower() ]
+    return set(filtered_words)
+
+def jaccard_similarity(set1, set2):
+     intersection = len(set1 & set2)
+     union = len(set1 | set2)
+     return intersection / union if union > 0 else 0
+
+
 query = []
 urls = ["https://docs.cypress.io/guides/references/changelog", "https://www.dictionary.com/e/soccer-or-football/", "https://en.wikipedia.org/wiki/Main_Page", "https://github.com/go-gitea/gitea/blob/main/custom/conf/app.example.ini", "https://www.vintageisthenewold.com/game-pedia/why-is-soccer-called-soccer", "https://www.yuhistorija.com/doc/yugoslavia%20from%20a%20historical%20perspective.pdf", "https://discovery.nationalarchives.gov.uk/details/a/A13532670", "https://www.geneseo.edu/~aguilar/public/assets/rw-2017/wiki-pages-nodenames.txt", "https://en.wikipedia.org/wiki/Wikipedia:Main_Page/Day_after_tomorrow", "https://github.com/concourse/concourse/issues/1200"
 ]
@@ -59,23 +76,27 @@ for url in urls:
             a = (len(alignment2)-distance)
             
             if(a>0):
-                plag2 = ((a*100)/len(sequence))
-                plag = plag2
-                if(scoree[score_tracker]<plag):
-                    scoree[score_tracker]=plag
-                print("........................................")
-                print("aln 1:", alignment1)
-                print("aln 2:", alignment2)
-                print("Alignment Score:", score) 
-                print(f"Levenshtein Distance between '{sequence}' and '{alignment2}': {distance}")  
-                print("Umaryabou")
-                print(plag2)
-                print("........................................")
+                print("JACCARD")
+                str1 = preprocess_text(sequence)
+                str2 = preprocess_text(alignment2)
+                similarity = jaccard_similarity(str1,str2)
+                if(scoree[score_tracker]<similarity):
+                    scoree[score_tracker]=similarity
+                # print("........................................")
+                # print("aln 1:", alignment1)
+                # print("aln 2:", alignment2)
+                # print("Alignment Score:", score) 
+                # print(f"Levenshtein Distance between '{sequence}' and '{alignment2}': {distance}")  
+                # print("Umaryabou")
+                
+                # print(plag2)
+                # print("........................................")
         
     score_tracker+=1
 
 print("Final Plagarism Score ------" )
 print(plag) 
 print(scoree)
+print(sum(scoree)/len(scoree))
 
 
