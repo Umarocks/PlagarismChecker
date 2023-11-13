@@ -97,6 +97,7 @@ for url in urls:
 print("Final Plagarism Score ------" )
 print(plag) 
 print(scoree)
-print((sum(scoree)/len(scoree))*100 + "%")
+plagiarism_score = (sum(scoree)/len(scoree))*100
+print( f"{plagiarism_score}%")
 
 
