@@ -1,7 +1,6 @@
-def smith_waterman(sequence1, sequence2, match=2, mismatch=-1, gap_penalty=-1):
-    # words1 = sequence1.split()
-    words1 = sequence1
-    words2 = sequence2.split()
+def smith_waterman(sequence111, sequence222, match=2, mismatch=-1, gap_penalty=-1):
+    words1 = sequence111.split()
+    words2 = sequence222.split()
 
     len_words1 = len(words1)
     len_words2 = len(words2)
@@ -54,6 +53,8 @@ def smith_waterman(sequence1, sequence2, match=2, mismatch=-1, gap_penalty=-1):
     # Convert the lists to strings
     aligned_words1 = ' '.join(aligned_words1)
     aligned_words2 = ' '.join(aligned_words2)
+    
+
 
     return aligned_words1, aligned_words2, max_score
 

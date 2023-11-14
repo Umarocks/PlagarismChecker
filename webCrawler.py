@@ -64,14 +64,14 @@ for url in urls:
     for sequence in sequence1:     
         print("........................................")
         # alignment1,alignment2,score = smith_waterman(sequence, sequence2)
-        final_score = calculate_plagiarism_score(sequence1,sequence2)
+        final_score = calculate_plagiarism_score(sequence,sequence2)
         scoree[score_tracker]=max(scoree[score_tracker],final_score)
         score_tracker+=1
     score_tracker=0
 print(sentences)
 print("Final Plagarism Score ------" )
 print(scoree)
-plagiarism_score = (sum(scoree)/len(scoree))*100
+plagiarism_score = (sum(scoree)/len(scoree))
 print( f"{plagiarism_score}%")
 
 

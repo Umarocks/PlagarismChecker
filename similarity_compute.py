@@ -1,23 +1,37 @@
+# import nltk
+
+# def levenshtein_distance(str1, str2):
+#     str1 = ''.join(str1)
+#     words1 = nltk.word_tokenize(str1)
+#     words2 = nltk.word_tokenize(str2)
+    
+#     # Compute Levenshtein distance between sequences of words
+#     distance = nltk.edit_distance(words1, words2)
+    
+#     return distance
+
 def levenshtein_distance(str1, str2):
-    len_str1 = len(str1) + 1
-    len_str2 = len(str2) + 1
+    words1 = str1.split()
+    words2 = str2.split()
 
-    matrix = [[0] * len_str2 for _ in range(len_str1)]
+    # Create a matrix to store distances
+    matrix = [[0] * (len(words2) + 1) for _ in range(len(words1) + 1)]
 
-    for i in range(len_str1):
+    # Initialize the matrix
+    for i in range(len(words1) + 1):
         matrix[i][0] = i
-
-    for j in range(len_str2):
+    for j in range(len(words2) + 1):
         matrix[0][j] = j
 
-    for i in range(1, len_str1):
-        for j in range(1, len_str2):
-            cost = 0 if str1[i - 1] == str2[j - 1] else 1
+    # Fill the matrix
+    for i in range(1, len(words1) + 1):
+        for j in range(1, len(words2) + 1):
+            cost = 0 if words1[i - 1] == words2[j - 1] else 1
             matrix[i][j] = min(
                 matrix[i - 1][j] + 1,      # Deletion
                 matrix[i][j - 1] + 1,      # Insertion
                 matrix[i - 1][j - 1] + cost  # Substitution
             )
 
-    return matrix[len_str1 - 1][len_str2 - 1]
-
+    # Return the Levenshtein distance at the word level
+    return matrix[len(words1)][len(words2)]
