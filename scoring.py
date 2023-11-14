@@ -15,14 +15,23 @@ def calculate_plagiarism_score(sequence11, sequence22, smith_waterman_weight=0.7
     l2 = len(sequence22)
     print(levenshtein_score)
     # Normalize scores (you can use different normalization methods)
-    normalized_smith_waterman = smith_waterman_score / max(l1, l2)
-    normalized_levenshtein = 1 - (levenshtein_score / max(l1, l2))
+    # normalized_smith_waterman = smith_waterman_score / max(l1, l2)
+    # normalized_levenshtein = 1 - (levenshtein_score / max(l1, l2))
 
     # Combine scores using a weighted average
     # combined_score = (smith_waterman_weight * normalized_smith_waterman +(1 - smith_waterman_weight) * normalized_levenshtein)
     if(len(sequence11)==0):
         return 100;
-    combined_score = ((len(sequence11)-levenshtein_score)*100)/len(sequence11)
+    words = sequence11.split()
+    combined_score = ((len(words)-levenshtein_score)*100)/len(sequence11)
+
+    combined_score =(((len(words)-levenshtein_score))/len(words))*100;
+
     # combined_score = ((len(sequence11)-len(alignment2))*100)
-    print(len(sequence11))
+    print(combined_score, levenshtein_score,len(sequence11), len(words),len(alignment2) )
     return combined_score
+
+
+
+
+[9.523809523809524, 7.6923076923076925, 9.090909090909092, 5.88235294117647, 6.666666666666667, 15.384615384615385, 22.22222222222222, 80.0, 47.61904761904761, 37.5, 40.0, 100.0, 25.0, 90.9090909090909, 100]

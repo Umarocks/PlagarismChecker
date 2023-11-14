@@ -50,20 +50,15 @@ print(sequence1)
 print(len(sequence1))
 for i in range(0,len(sequence1)):
     scoree.append(0.0)
-# we can do one thing that is to get 2 url for each sentence divided by "." this will help optimize 
-# as right now we are comparing all substr of seq1 with url of substr[i]
 for url in urls:  
-    sequence2="The Factorio API documentation provides reference material for creating mods, along with auxiliary topics. Mods can modify gameplay by adding new machines, showing informative GUIs, and more. They are distributed via the mod portal, accessible through the in-game mod manager. The API is divided into three parts: the settings, prototype, and runtime stages. These stages follow a specific order known as the data lifecycle, crucial for writing a properly working mod. Mods are written in Lua and must adhere to a specific structure. A tutorial-based introduction to modding can be found on the wiki. Settings Stage - Settings: The settings stage occurs during game start-up, allowing mods to define the setting prototypes. Documentation for this stage is available on the wiki. Prototype Stage - Data: The prototype stage, also during game start-up, provides the game with prototypes, acting as templates for crafting machines, recipes, and more. Runtime Stage - Control: The runtime stage takes place alongside normal gameplay, allowing interaction with the game world. It is event-driven, with API functionality provided via objects of various classes."
-    # sequence2=string_cleaning(url,sequence2)
-    
+    # sequence2="The Factorio API documentation provides reference material for creating mods, along with auxiliary topics. Mods can modify gameplay by adding new machines, showing informative GUIs, and more. They are distributed via the mod portal, accessible through the in-game mod manager. The API is divided into three parts: the settings, prototype, and runtime stages. These stages follow a specific order known as the data lifecycle, crucial for writing a properly working mod. Mods are written in Lua and must adhere to a specific structure. A tutorial-based introduction to modding can be found on the wiki. Settings Stage - Settings: The settings stage occurs during game start-up, allowing mods to define the setting prototypes. Documentation for this stage is available on the wiki. Prototype Stage - Data: The prototype stage, also during game start-up, provides the game with prototypes, acting as templates for crafting machines, recipes, and more. Runtime Stage - Control: The runtime stage takes place alongside normal gameplay, allowing interaction with the game world. It is event-driven, with API functionality provided via objects of various classes."
+    sequence2=''
+    sequence2=string_cleaning(url,sequence2)
     print("----------------------PRINTING S2-------------------------------")
     # print(sequence2)
-    sequence2 = preprocessing(sequence2)
-    # sequence2 = sequence2.split('.')
-    # print(sequence2)  
+    # sequence2 = preprocessing(sequence2)
     for sequence in sequence1:     
         print("........................................")
-        # alignment1,alignment2,score = smith_waterman(sequence, sequence2)
         final_score = calculate_plagiarism_score(sequence,sequence2)
         scoree[score_tracker]=max(scoree[score_tracker],final_score)
         score_tracker+=1
