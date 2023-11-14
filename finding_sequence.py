@@ -1,5 +1,6 @@
 def smith_waterman(sequence1, sequence2, match=2, mismatch=-1, gap_penalty=-1):
-    words1 = sequence1.split()
+    # words1 = sequence1.split()
+    words1 = sequence1
     words2 = sequence2.split()
 
     len_words1 = len(words1)

@@ -6,9 +6,9 @@ STOPWORDS = set(['the', 'a', 'an', 'and', 'or', 'of', 'to', 'is', 'are', 'in', '
 'whoever', 'whomever', 'whose', 'whom', 'who', 'where', 'when', 'why', 'how', 'what', 'which', 'whichever', 'whoever', 'whomever', 'whose', 'whomever', 'whichever', 'whoever', 'whomever', 'whose', 'whomever', 'whichever', 'whoever', 'whomever', 'whose', 'whomever', 'whichever', 'whoever', 'whomever', 'whose', 'whomever', 'whichever', 'whoever', 'whomever', 'whose', 'whomever', 'whichever', 'whoever', 'whomever', 'whose', 'whomever', 'whichever', 'whoever', 'whomever', 'whose', 'whomever', 'whichever', 'whoever', 'whomever', 'whose', 'whomever', 'whichever', 'whoever', 'whomever', 'whose', 'whomever', 'whichever', 'whoever', 'whomever', 'whose', 'whomever', 'whichever', 'whoever', 'whomever', 'whose', 'whomever', 'whichever', 'whoever', 'whomever', 'whose', 'whomever', 'whichever', 'whoever', 'whomever', 'whose', 'whomever', 'whichever', 'whoever', 'whomever', 'whose', 'whomever', 'whichever', 'whoever', 'whomever', 'whose', 'whomever', 'whichever', 'whoever', 'whomever', 'whose', 'whomever', 'whichever', 'whoever', 'whomever', 'whose', 'whomever', 'whichever'])
 
 def preprocessing(text):
-    text = text.lower()
-    # remove punctuation
-    cleaned_text = re.sub(r'(?<!\d)\.(?!\d)|[^\w\s.]', '', text)
+    # text = text.lower()
+    # # remove punctuation
+    # cleaned_text = re.sub(r'(?<!\d)\.(?!\d)|[^\w\s.]', '', text)
     # remove numbers
     text = re.sub(r'\d+', '', text)
     # remove common words
