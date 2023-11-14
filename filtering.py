@@ -15,7 +15,7 @@ def preprocessing(text):
     # text = ' '.join([word for word in text.split() if word not in STOPWORDS])
     # remove extra spaces
     text = text.replace("\n", "").replace("\t", "").replace("\r", "")
-    text = re.sub(r'\s+', ' ', text).strip()
+    # text = re.sub(r'\s+', ' ', text).strip()
     # no accents
     text = unidecode(text)
     return text
