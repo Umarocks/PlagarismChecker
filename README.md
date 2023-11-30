@@ -1,6 +1,6 @@
 # Plagiarism Checker Using Google Search and NLP
 
-Front-end of the software is under development, please use WebCrawler.py and modify input_string to test the software.
+Front-end of the software is under development, please use WebCrawler.py and modify sequence1 to test the software.
 
 This Python-based plagiarism checker leverages the power of Google Search and Natural Language Processing (NLP) to ensure the originality of content. In under 200 words, here's how it works:
 
