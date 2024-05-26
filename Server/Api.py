@@ -12,7 +12,7 @@ def callWebCrawler():
     # result =data["user_input"]
     print("...............API RECEIVED.................")
     print(result)
-    return jsonify(data)
+    return jsonify(result)
 
 
 if __name__ == '__main__':
