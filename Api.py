@@ -10,6 +10,7 @@ def callWebCrawler():
     data = request.get_json()
     result = webCrawler(data["user_input"])
     # result =data["user_input"]
+    print("...............API RECEIVED.................")
     print(result)
     return jsonify(data)
 

@@ -14,25 +14,10 @@ from array import array
 # from nltk.corpus import stopwords
 from scoring import calculate_plagiarism_score
 
-
-
-def preprocess_text(text):
-    # Tokenize the text into words
-    words = word_tokenize(text)
-    # Remove stopwords and lowercase the words
-    # stop_words = set(stopwords.words('english'))
-    filtered_words = [word.lower() for word in words if word.isalnum() and word.lower() ]
-    return set(filtered_words)
-
-def jaccard_similarity(set1, set2):
-    intersection = len(set1 & set2)
-    union = len(set1 | set2)
-    return intersection / union if union > 0 else 0
-
 def webCrawler(user_input):
     query = []
     urls = []
-
+    plag_urls = []
     sentences = []
     score_tracker=0
     scoree = []
@@ -50,24 +35,43 @@ def webCrawler(user_input):
     print(len(sequence1))
     for i in range(0,len(sequence1)):
         scoree.append(0.0)
-    for url in urls:  
-        # sequence2="The Factorio API documentation provides reference material for creating mods, along with auxiliary topics. Mods can modify gameplay by adding new machines, showing informative GUIs, and more. They are distributed via the mod portal, accessible through the in-game mod manager. The API is divided into three parts: the settings, prototype, and runtime stages. These stages follow a specific order known as the data lifecycle, crucial for writing a properly working mod. Mods are written in Lua and must adhere to a specific structure. A tutorial-based introduction to modding can be found on the wiki. Settings Stage - Settings: The settings stage occurs during game start-up, allowing mods to define the setting prototypes. Documentation for this stage is available on the wiki. Prototype Stage - Data: The prototype stage, also during game start-up, provides the game with prototypes, acting as templates for crafting machines, recipes, and more. Runtime Stage - Control: The runtime stage takes place alongside normal gameplay, allowing interaction with the game world. It is event-driven, with API functionality provided via objects of various classes."
-        sequence2=''
-        sequence2=string_cleaning(url,sequence2)
-        sequence2 = preprocessing(sequence2)
-        print("----------------------PRINTING S2-------------------------------")
-        # print(sequence2)
-        # sequence2 = preprocessing(sequence2)
-        for sequence in sequence1:     
-            print("........................................")
-            final_score = calculate_plagiarism_score(sequence,sequence2)
-            scoree[score_tracker]=max(scoree[score_tracker],final_score)
-            score_tracker+=1
-        score_tracker=0
+        plag_urls.append(0.0)
+
+
+
+   
+    for sequence in sequence1:
+        get_url(urls,sequence)
+        for url in urls:
+            # sequence2="The Factorio API documentation provides reference material for creating mods, along with auxiliary topics. Mods can modify gameplay by adding new machines, showing informative GUIs, and more. They are distributed via the mod portal, accessible through the in-game mod manager. The API is divided into three parts: the settings, prototype, and runtime stages. These stages follow a specific order known as the data lifecycle, crucial for writing a properly working mod. Mods are written in Lua and must adhere to a specific structure. A tutorial-based introduction to modding can be found on the wiki. Settings Stage - Settings: The settings stage occurs during game start-up, allowing mods to define the setting prototypes. Documentation for this stage is available on the wiki. Prototype Stage - Data: The prototype stage, also during game start-up, provides the game with prototypes, acting as templates for crafting machines, recipes, and more. Runtime Stage - Control: The runtime stage takes place alongside normal gameplay, allowing interaction with the game world. It is event-driven, with API functionality provided via objects of various classes."
+            sequence2=''
+            sequence2=string_cleaning(url,sequence2)
+            sequence2 = preprocessing(sequence2)
+            print("----------------------PRINTING S2-------------------------------")
+            # print(sequence2)
+            # sequence2 = preprocessing(sequence2)
+            for sequence in sequence1:     
+                print("........................................")
+                final_score = calculate_plagiarism_score(sequence,sequence2)
+                scorebool=False
+                if(final_score>scoree[score_tracker]):
+                    scorebool=True
+                scoree[score_tracker]=max(scoree[score_tracker],final_score)
+                if(scorebool):
+                    plag_urls[score_tracker]={"url":url,"score":final_score,"sequence":sequence,}
+                print(plag_urls)
+                score_tracker+=1
+            score_tracker=0
+        urls.clear()
+
+
     print(sentences)
     print("Final Plagarism Score ------" )
     print(scoree)
     plagiarism_score = (sum(scoree)/len(scoree))
+
     print( f"{plagiarism_score}%")
+    print(plag_urls)
+    return({"plagiarism_score":plagiarism_score,"plagiarism_urls":plag_urls})
 
 
