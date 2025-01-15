@@ -1,13 +1,22 @@
-import logo from "./logo.svg";
-import "./App.css";
-import Sidebar from "./Components/Sidebar";
+import { useState } from 'react'
+import './App.css'
 
 function App() {
-  <>
-    <div className="App">
-      <Sidebar />
-    </div>
-  </>;
+  const [count, setCount] = useState(0)
+
+  return (
+    <>
+      <h1>React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Hello World 
+        </p>
+      </div>
+    </>
+  );
 }
 
-export default App;
+export default App
