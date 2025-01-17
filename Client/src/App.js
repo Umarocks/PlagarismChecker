@@ -13,10 +13,10 @@ function App() {
       <form>
         <textarea />
       </form>
-        <button class="button-82-pushable" role="button" onClick={() => setLabel((btnLabel) => btnLabel == 'Submit' ? 'Submitted!' : 'Submit')}>
-          <span class="button-82-shadow"></span>
-          <span class="button-82-edge"></span>
-          <span class="button-82-front text">
+        <button className="button-82-pushable" role="button" onClick={() => setLabel((btnLabel) => btnLabel == 'Submit' ? 'Submitted!' : 'Submit')}>
+          <span className="button-82-shadow"></span>
+          <span className="button-82-edge"></span>
+          <span className="button-82-front text">
             {btnLabel}
           </span>
         </button>
