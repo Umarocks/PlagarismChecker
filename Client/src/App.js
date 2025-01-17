@@ -1,19 +1,20 @@
 import { useState } from 'react'
 import './App.css'
+import React from 'react';
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <h1>React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Hello World 
-        </p>
+      <div className="App">
+      <h1 className='App-header'>Plagiarism Check</h1>
+      <p>Enter Text to check for originality</p>
+      <form>
+      <label>Sample: 
+        <input type="text" />
+      </label>
+    </form>
       </div>
     </>
   );

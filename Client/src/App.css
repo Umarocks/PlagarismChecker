@@ -1,3 +1,6 @@
+*{ 
+  background-color: #aaa;
+}
 .App {
   text-align: center;
 }
@@ -12,10 +15,12 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+input[type='text'] {
+  background: white;
+}
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
