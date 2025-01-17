@@ -11,7 +11,6 @@ function App() {
       <h1 className='App-header'>Plagiarism Check</h1>
       <p>Enter Text to check for originality</p>
       <form>
-        <label className='inputLabel'></label>
         <textarea />
       </form>
         <button class="button-82-pushable" role="button" onClick={() => setLabel((btnLabel) => btnLabel == 'Submit' ? 'Submitted!' : 'Submit')}>
