@@ -23,6 +23,7 @@ textarea {
   background: white;
   width: 100%;
   max-width: 800px;
+  min-height: 200px;
 }
 
 .inputLabel{
