@@ -11,10 +11,9 @@ function App() {
       <h1 className='App-header'>Plagiarism Check</h1>
       <p>Enter Text to check for originality</p>
       <form>
-      <label>Sample: 
-        <input type="text" />
-      </label>
-    </form>
+        <label className='inputLabel'></label>
+        <textarea />
+      </form>
       </div>
     </>
   );
